@@ -12,3 +12,9 @@ Create a diagram depicting the situation where the user goes to the single page 
 
 ![Getting Started](./images/0.5.png
 )
+
+## 0.6: New note
+Create a diagram depicting the situation where the user creates a new note using the single page version of the app.
+![Getting Started](./images/0.6.png
+)
+
