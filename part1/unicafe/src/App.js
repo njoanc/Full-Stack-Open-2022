@@ -9,6 +9,7 @@ const App=()=>{
   const [neutral, setNeutral]=useState(0)
   const [bad, setBad]=useState(0)
   
+  
  const handleGood=()=>{
   setGood(good +1)
  }
@@ -25,9 +26,12 @@ const App=()=>{
       <Button handleClick={handleNeutral} text="Neutral"/>
       <Button handleClick={handleBad} text="bad"/>
       <h2>Statistics</h2>
-      <p>Good {good}</p>
-      <p>Neutral {neutral}</p>
-      <p>Bad {bad}</p>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad :{bad}</p>
+      <p>All: {good+bad+neutral}</p>
+      <p>Average:{(good+bad+neutral)/3}</p>
+      <p>Positive: {(good+bad+neutral)*3/100}%</p>
     </div>
   )
 
