@@ -5,6 +5,13 @@ const Button=({handleClick, text})=>(
   )
  
 const Statistics=(props)=>{
+  if(props.good===0&&props.neutral===0&&props.bad===0){
+    return(
+      <div>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
   return(
     <div>
       <p>Good: {props.good}</p>
