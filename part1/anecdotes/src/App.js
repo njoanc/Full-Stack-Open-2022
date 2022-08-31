@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-// const Button=(props)=>(
-//   <button onClick={props.nextAnecdote}>{props.text}</button>
-// )
+const Button=({nextAnecdote, text})=>(
+  <button onClick={nextAnecdote}>{text}</button>
+)
 
 
 const App=()=>{
@@ -27,7 +27,7 @@ const App=()=>{
     <>
     {anecdotes[selected]}
     <br/>
-    <button onClick={getRandomItem}>Next anecdote</button>
+    <Button nextAnecdote={getRandomItem} text="Next anecdote"/>
     
     </>
   )
