@@ -1,12 +1,16 @@
-import React from "react";
+import React from 'react';
 
-const Total=({sum})=>{
-   
-    return(
-        <p>
-            <strong>The total sum of exercises is {sum} exercises</strong>
-        </p>
-    )
+function Total({ sum }) {
+  return (
+    <p>
+      <strong>
+        The total sum of exercises is {' '}
+        {sum}
+        {' '}
+        exercises
+      </strong>
+    </p>
+  );
 }
 
-export default Total
+export default Total;
