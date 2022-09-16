@@ -1,9 +1,9 @@
 const Name=({name})=>{
 
     return(
-        <ul>
+        <p>
           {name}  
-        </ul>
+        </p>
     )
 
 }
