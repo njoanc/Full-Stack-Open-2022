@@ -1,9 +1,9 @@
-const Name=({name})=>{
+const Name=({name,phone})=>{
 
     return(
-        <p>
-          {name}  
-        </p>
+        <li>
+          {name}{' '} {phone} 
+        </li>
     )
 
 }

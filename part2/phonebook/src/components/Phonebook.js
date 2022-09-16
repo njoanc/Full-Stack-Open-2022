@@ -1,10 +1,10 @@
 import Name from "./Name"
-const Phonebook=({name})=>{
+const Phonebook=({name,phone})=>{
 
 
     return(
         <div>
-            <Name name={name.name}/>
+            <Name name={name} phone={phone}/>
         </div>
     )
 }

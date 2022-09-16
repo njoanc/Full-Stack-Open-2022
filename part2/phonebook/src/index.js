@@ -5,7 +5,8 @@ import App from './App';
 const names=[
   {
     id:1,
-    name:"Arto Hellas"
+    name:"Arto Hellas",
+    phone:"0785647890"
   }
 ]
 ReactDOM.createRoot(document.getElementById('root')).render(<App names={names}/>);
