@@ -3,6 +3,7 @@ import { useState } from "react";
 import Phonebook from "./components/Phonebook";
 
 
+
 const App=(props)=>{
   const [names, setNames]=useState(props.names)
   const [newName, setNewName]=useState('')
@@ -14,8 +15,13 @@ const App=(props)=>{
       name:newName,
       id:names.length+1
     }
-    setNames(names.concat(namesObject))
-    setNewName('')
+    if (names.some((person) => person.name === namesObject.name)){
+      alert(`${newName} The name already exists in the phonebook` )
+    }else{
+      setNames(names.concat(namesObject))
+      setNewName('')
+    }
+    
   }
 
   const handleNameChange=(event)=>{
