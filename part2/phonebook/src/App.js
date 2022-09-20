@@ -1,15 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import PersonForm from "./components/PersonForm.js";
 import Search from "./components/Search";
 import Persons from "./components/Persons";
 
 
 const App=(props)=>{
-  const [persons, setNames]=useState(props.persons)
+  const [persons, setNames]=useState([])
   const [newName, setNewName]=useState('')
   const [newPhone, setNewPhone]=useState('')
   const [filter, setFilter]=useState('')
   
+  // useEffect(()=>{
+  //   console.log('effect')
+  //   axios.get('http://localhost:3002/persons').then(response=>{
+  //     console.log('promise fulfilled')
+  //     setNames(response.data)
+  //   })
+  // },[])
+  // console.log('render', persons.length,'persons')
+
+  // const hook=()=>{
+  //   console.log('effect')
+  //   axios.get('http://localhost:3002/persons').then(response=>{
+  //     console.log('promise fulfilled')
+  //     setNames(response.data)
+  //   })
+  // }
+  // useEffect(hook,[])
+
+  useEffect(()=>{
+    const eventHandler=response=>{
+      console.log('promise fulfilled')
+      setNames(response.data)
+    }
+    const promise=axios.get('http://localhost:3002/persons')
+    promise.then(eventHandler)
+  },[])
+  console.log('render', persons.length,'persons')
 
   const addName=(event)=>{
     event.preventDefault()
