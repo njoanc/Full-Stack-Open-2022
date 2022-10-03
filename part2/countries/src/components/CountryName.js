@@ -8,8 +8,8 @@ const CountryName = ({ countries }) => {
     if (data.includes(country.name.common)) {
       setDataDetails(data.filter(details => details !== country.name.common))
     } else {
-      let detailsCopy = [...data]
-      setDataDetails(detailsCopy.concat(country.name.common))
+      let combinedData = [...data]
+      setDataDetails(combinedData.concat(country.name.common))
     }
   }
 
