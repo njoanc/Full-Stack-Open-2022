@@ -6,7 +6,7 @@ const Country = ({ country }) => {
     const [ weather, setWeather ] = useState()
     const api_key=process.env.REACT_APP_API_KEY
     const url=`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${api_key}`
-   
+
   useEffect(() => {
     axios
       .get(url)
