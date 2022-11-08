@@ -1,12 +1,19 @@
 import React from 'react';
-import Name from './Name';
 
-const Persons = ({ persons, filter }) => {
-  let filteredPersons = persons
-  if (filter) {
-    filteredPersons = persons.filter(person => new RegExp(filter, "i").test(person.name));
-  }
-  return filteredPersons.map(person => <Name key={person.name} name={person.name} phone={person.phone}/>)
-}
+const Persons = ({ persons, filter, deletePersonById }) => {
+    let filteredPersons = persons;
+    if (filter) {
+        filteredPersons = persons.filter((person) => new RegExp(filter, 'i').test(person.name));
+    }
+    return filteredPersons.map((person) => (
+        <li key={person.name}>
+            <br />
+            Name:{person.name} <br />
+            Phone:{person.phone}
+            <br />
+            <button onClick={() => deletePersonById(person)}>Delete</button>
+        </li>
+    ));
+};
 
 export default Persons;

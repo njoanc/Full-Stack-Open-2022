@@ -4,13 +4,10 @@ import Country from './Country'
 const CountryName = ({ countries }) => {
   const [ data, setDataDetails] = useState([])
 
-  const toggledata = (country) => {
-    if (data.includes(country.name.common)) {
-      setDataDetails(data.filter(details => details !== country.name.common))
-    } else {
-      let detailsCopy = [...data]
-      setDataDetails(detailsCopy.concat(country.name.common))
-    }
+  const response = (country) => {
+    data.includes(country.name.common)?
+    setDataDetails(data.filter(details => details !== country.name.common)):
+    setDataDetails([...data].concat(country.name.common))
   }
 
   return (
@@ -19,7 +16,7 @@ const CountryName = ({ countries }) => {
         return (
           <li key={country.name.common}>
             {country.name.common}
-            <button onClick={() => toggledata(country)}>show/hide details</button>
+            <button onClick={() => response(country)}>show/hide details</button>
             {data.includes(country.name.common) && 
               <Country country={country} />
             }

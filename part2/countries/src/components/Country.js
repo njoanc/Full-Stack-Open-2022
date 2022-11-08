@@ -4,10 +4,9 @@ import axios from 'axios'
 
 const Country = ({ country }) => {
     const [ weather, setWeather ] = useState()
-    // const value=weather.weather[0]
     const api_key=process.env.REACT_APP_API_KEY
     const url=`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${api_key}`
-    // const imageUrl=`https://api.openweathermap.org/img/${value?value[0].icon:null}.png`
+
   useEffect(() => {
     axios
       .get(url)
@@ -38,7 +37,7 @@ const Country = ({ country }) => {
           <h2>Weather in {country.capital}</h2>
           <p>Humidity {weather.main.humidity}</p>
           <p>Temp: {weather.main.temp}</p>
-          <img src={weather.weather[0].icon} width="120" height="100" alt='Weather icon'/>
+          <img src={`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`} width="150" height="150" alt="weather icon"/>
           <p>wind: {weather.wind.speed} speed</p>
         </div>
       }
