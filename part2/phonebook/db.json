@@ -1,34 +1,24 @@
 {
   "persons": [
     {
-      "name": "Dan Abramov",
-      "phone": "12-43-234345",
-      "id": 1
-    },
-    {
-      "name": "Mary Poppendieck",
-      "phone": "39-23-6423122",
-      "id": 2
-    },
-    {
-      "phone": "09876540",
-      "name": "Mariane",
-      "id": 6
-    },
-    {
-      "phone": "09876540",
-      "name": "Maryly",
-      "id": 7
-    },
-    {
-      "phone": "1234567890",
-      "name": "Mary",
-      "id": 8
-    },
-    {
       "phone": "345678",
       "name": "Mom",
       "id": 9
+    },
+    {
+      "phone": "647568798",
+      "name": "Makabo",
+      "id": 10
+    },
+    {
+      "phone": "7869708",
+      "name": "Makanika",
+      "id": 11
+    },
+    {
+      "phone": "123-456-7870",
+      "name": "Muvara",
+      "id": 12
     }
   ]
 }

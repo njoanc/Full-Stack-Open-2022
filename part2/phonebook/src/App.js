@@ -4,12 +4,17 @@ import PersonForm from './components/PersonForm.js';
 import Search from './components/Search';
 import Persons from './components/Persons';
 import personService from './services/persons';
+import Notification from './components/Notification.js';
+import './index.css';
 
 const App = () => {
     const [persons, setNames] = useState([]);
     const [newName, setNewName] = useState('');
     const [newPhone, setNewPhone] = useState('');
     const [filter, setFilter] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
+    const phoneValidation = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    const [, setError] = useState(false);
 
     const handleNameChange = (event) => {
         setNewName(event.target.value);
@@ -36,9 +41,16 @@ const App = () => {
         };
 
         if (!newName || !newPhone) {
-            alert(`${newPhone} or ${newName} fields are required`);
+            alert(` The name and phone number fields are required`);
             return;
         }
+        if (!phoneValidation.test(newPhone)) {
+            alert(
+                ` phone number should be valid like: (123) 456-7890,(123)456-7890,123-456-7890,1234567890, `
+            );
+            return;
+        }
+
         //check if the name is in the database
         const data = persons.find(
             (person) => person.name.toLowerCase() === newName.toLocaleLowerCase()
@@ -52,11 +64,27 @@ const App = () => {
                 //copy data object and update the phone value
                 const copyData = { ...data, phone: newPhone };
 
-                personService.updateOne(data.id, copyData).then((item) => {
-                    setNames(persons.map((person) => (person.id === data.id ? person : item)));
-                    setNewName('');
-                    setNewPhone('');
-                });
+                personService
+                    .updateOne(data.id, copyData)
+                    .then((item) => {
+                        setNames(persons.map((person) => (person.id === data.id ? person : item)));
+                        setNewName('');
+                        setNewPhone('');
+                    })
+                    .then((message) => {
+                        setErrorMessage(`${newName}'s phone number  has  been updated`);
+                        setTimeout(() => {
+                            setErrorMessage(null);
+                        }, 5000);
+                    })
+                    .catch((error) => {
+                        setError(true);
+                        setErrorMessage(`${newName} does not exist`);
+                        setTimeout(() => {
+                            setErrorMessage(null);
+                            setError(false);
+                        }, 5000);
+                    });
             }
         } else if (data && data.name === newName) {
             alert(`${newName} exists in the field. it should be unique`);
@@ -73,6 +101,10 @@ const App = () => {
                 } else {
                     setNames(persons.concat(person));
                     setNewName('');
+                    setNewPhone('');
+                    setErrorMessage(
+                        `The ${newName} and ${newPhone} has been added in the phonebook`
+                    );
                 }
             });
         }
@@ -84,10 +116,10 @@ const App = () => {
                 .deleteOne(element.id)
                 .then(() => {
                     setNames(persons.filter((el) => el.id !== element.id));
-                    alert(`${element.name} has been deleted successfully!`);
+                    setErrorMessage(`${element.name} has been deleted successfully!`);
                 })
                 .catch((error) => {
-                    alert(`${element.name} does not exist`);
+                    setErrorMessage(`${element.name} does not exist`);
                 });
         }
     };
@@ -99,12 +131,14 @@ const App = () => {
                 <Search filter={filter} onQueryChange={handleFilterchange} />
             </div>
             <h2>Add a new name or phone number</h2>
+
             <PersonForm
                 onFormSubmit={addPerson}
                 name={newName}
                 onNameChange={handleNameChange}
                 onPhoneChange={handlePhoneChange}
             />
+            <Notification message={errorMessage} />
 
             <h2>Numbers</h2>
             <ol>

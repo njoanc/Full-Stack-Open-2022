@@ -1,0 +1,13 @@
+.erro{
+    color:rgb(185, 35, 35)
+}
+
+.success{
+    color:rgb(7, 124, 7);
+    display: block;
+    background-color: rgb(154, 207, 193);
+    border: 3px solid green;
+    padding: 5px;
+
+    
+}
