@@ -1,24 +1,3 @@
 {
-  "persons": [
-    {
-      "phone": "345678",
-      "name": "Mom",
-      "id": 9
-    },
-    {
-      "phone": "647568798",
-      "name": "Makabo",
-      "id": 10
-    },
-    {
-      "phone": "7869708",
-      "name": "Makanika",
-      "id": 11
-    },
-    {
-      "phone": "123-456-7870",
-      "name": "Muvara",
-      "id": 12
-    }
-  ]
+  "persons": []
 }

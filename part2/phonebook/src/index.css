@@ -1,5 +1,9 @@
-.erro{
-    color:rgb(185, 35, 35)
+.error{
+    color:rgb(185, 35, 35);
+    display: block;
+    background-color: rgb(233, 239, 210);
+    border: 3px solid rgb(240, 7, 7);
+    padding: 5px;
 }
 
 .success{
