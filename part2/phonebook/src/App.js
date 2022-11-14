@@ -14,7 +14,7 @@ const App = () => {
     const [filter, setFilter] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const phoneValidation = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
-    const [, setError] = useState(false);
+    const [error, setError] = useState(false);
 
     const handleNameChange = (event) => {
         setNewName(event.target.value);
@@ -119,7 +119,9 @@ const App = () => {
                     setErrorMessage(`${element.name} has been deleted successfully!`);
                 })
                 .catch((error) => {
-                    setErrorMessage(`${element.name} does not exist`);
+                    setErrorMessage(
+                        `Information of ${element.name} has already been removed from server`
+                    );
                 });
         }
     };
@@ -138,7 +140,7 @@ const App = () => {
                 onNameChange={handleNameChange}
                 onPhoneChange={handlePhoneChange}
             />
-            <Notification message={errorMessage} />
+            <Notification message={errorMessage} errorToggle={error} />
 
             <h2>Numbers</h2>
             <ol>
