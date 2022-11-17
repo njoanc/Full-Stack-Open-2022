@@ -5,14 +5,14 @@ const Persons = ({ persons, filter, deletePersonById }) => {
     if (filter) {
         filteredPersons = persons.filter((person) => new RegExp(filter, 'i').test(person.name));
     }
-    return filteredPersons.map((person) => (
-        <li key={person.name}>
+    return filteredPersons.map((person, id) => (
+        <div key={person.id}>
             <br />
             Name:{person.name} <br />
-            Phone:{person.phone}
+            Phone:{person.number}
             <br />
             <button onClick={() => deletePersonById(person)}>Delete</button>
-        </li>
+        </div>
     ));
 };
 
