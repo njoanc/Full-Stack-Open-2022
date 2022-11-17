@@ -36,7 +36,7 @@ const App = () => {
     const addPerson = (event) => {
         event.preventDefault();
         const personsObject = {
-            phone: newPhone,
+            number: newPhone,
             name: newName
         };
 
@@ -55,14 +55,14 @@ const App = () => {
         const data = persons.find(
             (person) => person.name.toLowerCase() === newName.toLocaleLowerCase()
         );
-        if (data && data.name === newName && data.phone !== newPhone) {
+        if (data && data.name === newName && data.number !== newPhone) {
             if (
                 window.confirm(
                     `The ${newName} already has a phone number, replace it with the new one?`
                 )
             ) {
                 //copy data object and update the phone value
-                const copyData = { ...data, phone: newPhone };
+                const copyData = { ...data, number: newPhone };
 
                 personService
                     .updateOne(data.id, copyData)
@@ -88,15 +88,15 @@ const App = () => {
             }
         } else if (data && data.name === newName) {
             alert(`${newName} exists in the field. it should be unique`);
-        } else if (data && data.phone === newPhone) {
+        } else if (data && data.number === newPhone) {
             alert(`${newPhone} exists`);
         } else {
             personService.createNew(personsObject).then((person) => {
                 if (persons.some((person) => person.name === personsObject.name)) {
                     alert(`The ${newName} already exist in the phonebook`);
-                } else if (persons.some((el) => el.phone === personsObject.phone)) {
-                    alert(`The ${personsObject.phone} phone already exist in the phonebook`);
-                } else if (personsObject.name === undefined || personsObject.phone === undefined) {
+                } else if (persons.some((el) => el.number === personsObject.number)) {
+                    alert(`The ${personsObject.number} phone already exist in the phonebook`);
+                } else if (personsObject.name === undefined || personsObject.number === undefined) {
                     alert('The name or phone are required');
                 } else {
                     setNames(persons.concat(person));
