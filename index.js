@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 const express = require("express");
-// let phonebook = require("./phonebook.json");
 const fs = require("fs");
 const path = require("path");
 const morgan = require("morgan");
