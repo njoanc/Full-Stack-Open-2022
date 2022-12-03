@@ -5,10 +5,17 @@ const PersonForm = ({ onFormSubmit, onNameChange, onPhoneChange, name, number })
         <div>
             <form onSubmit={onFormSubmit}>
                 <div>
-                    Name: <input type="text" value={name} onChange={onNameChange} />
+                    Name:{' '}
+                    <input type="text" value={name} placeholder="name" onChange={onNameChange} />
                     <br />
                     <br />
-                    Phone: <input type="text" value={number} onChange={onPhoneChange} />
+                    Phone:{' '}
+                    <input
+                        type="text"
+                        placeholder="phone number"
+                        value={number}
+                        onChange={onPhoneChange}
+                    />
                     <br />
                     <br />
                     <button type="submit">Add </button>

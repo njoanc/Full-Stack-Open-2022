@@ -1,4 +1,6 @@
 import React from 'react';
+const propTypes = {};
+const defaultProps = {};
 
 const Search = ({ query, onQueryChange }) => {
     return (
@@ -7,5 +9,9 @@ const Search = ({ query, onQueryChange }) => {
         </div>
     );
 };
+
+//input validation
+Search.propTypes = propTypes;
+Search.defaultProps = defaultProps;
 
 export default Search;

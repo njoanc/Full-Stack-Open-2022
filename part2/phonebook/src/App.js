@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import PersonForm from './components/PersonForm.js';
 import Search from './components/Search';
 import Persons from './components/Persons';
 import personService from './services/persons';
 import Notification from './components/Notification.js';
-import './index.css';
-
+import './index.scss';
+import LoginForm from './components/LoginForm.js';
+import loginService from './services/login';
+import Togglable from './components/Togglable.js';
+import Pagination from './components/Pagination';
+let PageSize = 10;
 const App = () => {
     const [persons, setNames] = useState([]);
     const [newName, setNewName] = useState('');
@@ -14,6 +18,17 @@ const App = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const phoneValidation = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
     const [error, setError] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [user, setUser] = useState(null);
+    const personFormRef = useRef();
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return persons.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
 
     const handleNameChange = (event) => {
         setNewName(event.target.value);
@@ -26,10 +41,49 @@ const App = () => {
         setFilter(event.target.value);
     };
 
+    const onChangeUsername = (event) => {
+        setUsername(event.target.value);
+    };
+
+    const onChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const onSubmitLoginHandle = async (event) => {
+        event.preventDefault();
+
+        try {
+            const user = await loginService.login({ username, password });
+            window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user));
+            personService.setToken(user.token);
+            setUser(user);
+            setUsername('');
+            setPassword('');
+        } catch (exception) {
+            setErrorMessage('Wrong credentials');
+            setTimeout(() => {
+                setErrorMessage(null);
+            }, 5000);
+        }
+    };
+
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        window.localStorage.clear();
+    };
+
     useEffect(() => {
         personService.getAll().then((person) => {
             setNames(person);
         });
+    }, []);
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem('loggedPhonebookappUser');
+        if (loggedUserJSON) {
+            const user = JSON.parse(loggedUserJSON);
+            setUser(user);
+            personService.setToken(user.token);
+        }
     }, []);
 
     const addPerson = (event) => {
@@ -90,6 +144,7 @@ const App = () => {
         } else if (data && data.number === newPhone) {
             alert(`${newPhone} exists`);
         } else {
+            personFormRef.current.toggleVisibility();
             personService.createNew(personsObject).then((person) => {
                 if (persons.some((person) => person.name === personsObject.name)) {
                     alert(`The ${newName} already exist in the phonebook`);
@@ -128,23 +183,57 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
-            <div>
-                <Search filter={filter} onQueryChange={handleFilterchange} />
-            </div>
-            <h2>Add a new name or phone number</h2>
-
-            <PersonForm
-                onFormSubmit={addPerson}
-                name={newName}
-                onNameChange={handleNameChange}
-                onPhoneChange={handlePhoneChange}
-            />
             <Notification message={errorMessage} errorToggle={error} />
+            {!user ? (
+                <div>
+                    <Togglable buttonLabel="login">
+                        <LoginForm
+                            username={username}
+                            password={password}
+                            onChangeUsername={onChangeUsername}
+                            onChangePassword={onChangePassword}
+                            handleLogin={onSubmitLoginHandle}
+                        />
+                    </Togglable>
+                </div>
+            ) : (
+                <div>
+                    <Togglable buttonLabel="new person" ref={personFormRef}>
+                        <p style={{ color: 'green' }}>{user.username} logged-in</p>
+                        <button onClick={handleLogout}>Logout</button>
+                        <h2>Add a new name or phone number</h2>
+                        <PersonForm
+                            onFormSubmit={addPerson}
+                            name={newName}
+                            onNameChange={handleNameChange}
+                            onPhoneChange={handlePhoneChange}
+                        />
+                    </Togglable>
+                </div>
+            )}
 
-            <h2>Numbers</h2>
-            <ol>
-                <Persons persons={persons} filter={filter} deletePersonById={deletePersonById} />
-            </ol>
+            <br></br>
+
+            <Togglable buttonLabel="List of persons">
+                <div>
+                    <Search filter={filter} onQueryChange={handleFilterchange} />
+                    <h2>Numbers</h2>
+                    <ol>
+                        <Persons
+                            persons={persons}
+                            filter={filter}
+                            deletePersonById={deletePersonById}
+                        />
+                    </ol>
+                </div>
+            </Togglable>
+            <Pagination
+                className="pagination-bar"
+                currentPage={currentPage}
+                totalCount={persons.length}
+                pageSize={PageSize}
+                onPageChange={(page) => setCurrentPage(page)}
+            />
         </div>
     );
 };

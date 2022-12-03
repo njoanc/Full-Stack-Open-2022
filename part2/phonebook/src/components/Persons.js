@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Persons = ({ persons, filter, deletePersonById }) => {
     let filteredPersons = persons;
@@ -15,5 +16,7 @@ const Persons = ({ persons, filter, deletePersonById }) => {
         </div>
     ));
 };
-
+Persons.propTypes = {
+    persons: PropTypes.array.isRequired
+};
 export default Persons;
