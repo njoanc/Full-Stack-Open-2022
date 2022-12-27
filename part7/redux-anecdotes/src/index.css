@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+  margin-left: 30px;
+  margin-right: 20px;
+}
+
+.main {
+  margin: 2rem;
+}
+
+.nav{
+    display: flex;
+    /* gap: 10px; */
+    /* flex-direction: column; */
+  gap: 10px 20px; /* row-gap column gap
+  /* row-gap: 10px; */
+  /* column-gap: 20px;  */
+  background-color: blanchedalmond;
+  font-size:xx-large;
+    
+}
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .container{
+    width:50%;
+    margin: 0 auto;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
